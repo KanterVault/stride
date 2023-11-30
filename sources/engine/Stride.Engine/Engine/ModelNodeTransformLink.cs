@@ -36,11 +36,15 @@ namespace Stride.Engine
                 if (skeleton != null)
                 {
                     nodesLength = parentModelComponent.Skeleton.Nodes.Length;
-
                     // Find our node index
                     nodeIndex = int.MaxValue;
                     for (int index = 0; index < skeleton.Nodes.Length; index++)
                     {
+                        if (skeleton == null || skeleton.Nodes == null || skeleton.NodeTransformations == null)
+                        {
+                            matrix = parentModelComponent.Entity.Transform.WorldMatrix;
+                            return;
+                        }
                         var node = skeleton.Nodes[index];
                         if (node.Name == nodeName)
                         {
@@ -55,7 +59,12 @@ namespace Stride.Engine
             {
                 var nodes = skeleton.Nodes;
                 var nodeTransformations = skeleton.NodeTransformations;
-                if (nodeIndex < nodes.Length)
+                if (nodes == null || nodeTransformations == null)
+                {
+                    matrix = parentModelComponent.Entity.Transform.WorldMatrix;
+                    return;
+                }
+                else if (nodeIndex < nodes.Length)
                 {
                     // Compute
                     matrix = nodeTransformations[nodeIndex].WorldMatrix;

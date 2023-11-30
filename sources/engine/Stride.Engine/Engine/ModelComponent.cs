@@ -258,7 +258,9 @@ namespace Stride.Engine
             for (int meshIndex = 0; meshIndex < Model.Meshes.Count; meshIndex++)
             {
                 var mesh = Model.Meshes[meshIndex];
+                if (mesh == null) return;
                 var meshInfo = meshInfos[meshIndex];
+                if (meshInfo == null) return;
                 meshInfo.BoundingSphere = BoundingSphere.Empty;
                 meshInfo.BoundingBox = BoundingBox.Empty;
 
@@ -266,10 +268,10 @@ namespace Stride.Engine
                 {
                     bool meshHasBoundingBox = false;
                     var bones = mesh.Skinning.Bones;
-
                     // For skinned meshes, bounding box is union of the bounding boxes of the unskinned mesh, transformed by each affecting bone.
                     for (int boneIndex = 0; boneIndex < bones.Length; boneIndex++)
                     {
+                        if (bones == null) return;
                         var nodeIndex = bones[boneIndex].NodeIndex;
                         Matrix.Multiply(ref bones[boneIndex].LinkToMeshMatrix, ref skeleton.NodeTransformations[nodeIndex].WorldMatrix, out meshInfo.BlendMatrices[boneIndex]);
 

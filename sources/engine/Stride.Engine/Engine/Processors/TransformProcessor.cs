@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using Stride.Core.Collections;
+using Stride.Core.Extensions;
 using Stride.Core.Threading;
 using Stride.Rendering;
 
@@ -111,6 +112,7 @@ namespace Stride.Engine.Processors
 
         private static void UpdateTransformationsRecursive(TransformComponent transform)
         {
+            if (transform == null) return;
             transform.UpdateLocalMatrix();
             transform.UpdateWorldMatrixInternal(false);
             foreach (var child in transform.Children)
@@ -126,13 +128,12 @@ namespace Stride.Engine.Processors
         public override void Draw(RenderContext context)
         {
             notSpecialRootComponents.Clear();
-            foreach (var t in TransformationRoots)
-                notSpecialRootComponents.Add(t);
+            TransformationRoots.ForEach(f => { if (f != null) notSpecialRootComponents.Add(f); });
 
             // Update scene transforms
             // TODO: Entity processors should not be aware of scenes
             var sceneInstance = EntityManager as SceneInstance;
-            if (sceneInstance?.RootScene != null)
+            if (sceneInstance != null && sceneInstance.RootScene != null)
             {
                 UpdateTransfromationsRecursive(sceneInstance.RootScene);
             }
