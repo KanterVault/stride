@@ -88,7 +88,8 @@ namespace Stride.Rendering
             var nodesLength = nodes.Length;
             for (int index = 0; index < nodesLength; index++)
             {
-                if (nodeTransformations == null) continue;
+                //if (nodeTransformations.Length == 0) return;
+                //if (nodeTransformations.Length <= index) return;
                 UpdateNode(ref nodeTransformations[index]);
             }
             matrixCounter++;
@@ -106,8 +107,6 @@ namespace Stride.Rendering
 
         private void UpdateNode(ref ModelNodeTransformation node)
         {
-            if (node.Equals(default)) return;
-            
             // Compute LocalMatrix
             if ((node.Flags & ModelNodeFlags.EnableTransform) == ModelNodeFlags.EnableTransform)
             {

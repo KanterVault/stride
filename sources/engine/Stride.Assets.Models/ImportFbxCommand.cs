@@ -28,6 +28,7 @@ namespace Stride.Assets.Models
             var meshConverter = CreateMeshConverter(commandContext);
             var materialMapping = Materials.Select((s, i) => new { Value = s, Index = i }).ToDictionary(x => x.Value.Name, x => x.Index);
             var sceneData = meshConverter.Convert(SourcePath, Location, materialMapping);
+            sceneData.Meshes.RemoveAll(f => f == null);
             return sceneData;
         }
 
