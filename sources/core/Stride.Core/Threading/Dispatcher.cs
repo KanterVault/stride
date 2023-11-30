@@ -65,8 +65,7 @@ namespace Stride.Core.Threading
                         state.WaitCompletion(toExclusive);
 
                         var ex = Interlocked.Exchange(ref state.ExceptionThrown, null);
-                        if (ex != null)
-                            throw ex;
+                        //if (ex != null) throw ex;
                     }
                     finally
                     {
@@ -113,8 +112,7 @@ namespace Stride.Core.Threading
                         state.WaitCompletion(toExclusive);
 
                         var ex = Interlocked.Exchange(ref state.ExceptionThrown, null);
-                        if (ex != null)
-                            throw ex;
+                        //if (ex != null) throw ex;
                     }
                     finally
                     {
@@ -162,8 +160,7 @@ namespace Stride.Core.Threading
                     state.WaitCompletion(collection.Count);
 
                     var ex = Interlocked.Exchange(ref state.ExceptionThrown, null);
-                    if (ex != null)
-                        throw ex;
+                    //if (ex != null) throw ex;
                 }
                 finally
                 {
@@ -195,8 +192,7 @@ namespace Stride.Core.Threading
                     state.WaitCompletion(collection.Count);
 
                     var ex = Interlocked.Exchange(ref state.ExceptionThrown, null);
-                    if (ex != null)
-                        throw ex;
+
                 }
                 finally
                 {
@@ -328,7 +324,7 @@ namespace Stride.Core.Threading
             catch (Exception e)
             {
                 Interlocked.Exchange(ref state.ExceptionThrown, e);
-                throw;
+                //throw;
             }
             finally
             {
@@ -408,7 +404,7 @@ namespace Stride.Core.Threading
             catch (Exception e)
             {
                 Interlocked.Exchange(ref state.ExceptionThrown, e);
-                throw;
+                //throw;
             }
             finally
             {
@@ -459,7 +455,7 @@ namespace Stride.Core.Threading
             catch (Exception e)
             {
                 Interlocked.Exchange(ref state.ExceptionThrown, e);
-                throw;
+                //throw;
             }
             finally
             {
